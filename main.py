@@ -1,5 +1,5 @@
 import os, threading
-# os.environ["KIVY_NO_CONSOLELOG"] = "1"
+os.environ["KIVY_NO_CONSOLELOG"] = "1"
 
 from kivy.app import App
 from kivy.lang import Builder as build
@@ -22,10 +22,10 @@ from kivy.uix.widget import Widget
 from pydub import AudioSegment
 from pydub.playback import play
 
-# Config.set("kivy", "log_enable", "0")  # Disable logging
-# Config.set("kivy", "log_level", "error")  # Only show critical errors
-# Config.set("kivy", "log_maxfiles", "-1")  # Prevent log file creation
-# Logger.disabled = True
+Config.set("kivy", "log_enable", "0")  # Disable logging
+Config.set("kivy", "log_level", "error")  # Only show critical errors
+Config.set("kivy", "log_maxfiles", "-1")  # Prevent log file creation
+Logger.disabled = True
 
 left_keys = 'QWERASDFZXCV'
 right_keys = 'UIOPJKL;M,./'
