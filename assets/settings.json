@@ -1,0 +1,81 @@
+[
+    {
+        "type": "title",
+        "title": "Colors"
+    },
+    {
+        "type": "color",
+        "title": "Color1",
+        "desc": "Timer 1 Color",
+        "section": "Colors",
+        "key": "player1"
+    },
+    {
+        "type": "color",
+        "title": "Color2",
+        "desc": "Timer 2 Color",
+        "section": "Colors",
+        "key": "player2"
+    },
+    {
+        "type": "color",
+        "title": "Background Color",
+        "desc": "Set your background Color",
+        "section": "Colors",
+        "key": "background"
+    },
+    {
+        "type": "color",
+        "title": "Font Color",
+        "desc": "Set your font Color",
+        "section": "Colors",
+        "key": "font-color"
+    },
+    {
+        "type": "color",
+        "title": "Hover Color",
+        "desc": "This is the Background color of the buttons when you hover over them",
+        "section": "Colors",
+        "key": "hover-color"
+    },
+    {
+        "type": "color",
+        "title": "Icon Color",
+        "desc": "The Color of your Icons",
+        "section": "Colors",
+        "key": "icon-color"
+    },
+    {
+        "type": "title",
+        "title": "Text"
+    },
+    {
+        "type": "numeric",
+        "title": "Font Size",
+        "desc": "Set the font size of the text",
+        "section": "text",
+        "key": "font-size"
+    },
+    {
+        "type": "title",
+        "title": "Increments"
+    },
+    {
+        "type": "bool",
+        "title": "Allow increments",
+        "desc": "Allow time additions while playing",
+        "section": "Increments",
+        "key": "allow-increments"
+    },
+    {
+        "type": "numeric",
+        "title": "Increment by",
+        "desc": "The time to be added per play",
+        "section": "Increments",
+        "key": "increment-by"
+    },
+    {
+        "type": "title",
+        "title": "This project was made by Okonkwo Chukwunonso Noel, you can visit him on `https://www.linkedin.com/in/noel-mtc22`"
+    }
+]

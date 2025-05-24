@@ -1,0 +1,161 @@
+#:import Window kivy.core.window.Window
+<EditableSpinner>:
+    size_hint: None, None
+    height: dp(40)
+    width: dp(100)
+    TextInput:
+        id: textinput
+        text: root.text
+        hint_text: root.hint
+        multiline: False
+        input_filter: 'int'
+        halign: 'center'
+        font_size: '18sp'
+        on_text:
+            root.load_dropdown(root.dropdown)
+            root.text = self.text
+        on_focus:
+            if self.focus: root.open_dropdown()
+            else: root.dismiss_dropdown()
+
+<TimerPopup>:
+    title: "Set Timer"
+    size_hint: None, None
+    size: dp(400), dp(200)
+    auto_dismiss: False
+    background: ''
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(10)
+        BoxLayout:
+            spacing: dp(10)
+            # Hours: range 00-23
+            EditableSpinner:
+                id: spinner_hours
+                max_value: 23
+            Label:
+                text: ":"
+                font_size: '24sp'
+            # Minutes: range 00-59
+            EditableSpinner:
+                id: spinner_minutes
+                max_value: 59
+            Label:
+                text: ":"
+                font_size: '24sp'
+            # Seconds: range 00-59
+            EditableSpinner:
+                id: spinner_seconds
+                max_value: 59
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(10)
+            Button:
+                text: "Cancel"
+                on_release: root.dismiss()
+            Button:
+                text: "Set Timer"
+                on_release: root.apply_timer()
+
+<IconButton>:
+    size_hint: None, None
+    # size: [min(self.parent.size) - self.parent.padding[0] * 2] * 2
+    size: [comp * 1.5 for comp in self.texture_size]
+    pos_hint: {'center_x':.5,'center_y':.5}
+    # fit_mode: 'contain'
+
+<Player>:
+    background_normal: ''
+    background_down: ''
+    background_color: 0,0,0,0
+    allow_no_selection: True
+    opacity: int(not self.timer <= 0)
+    color: 1,1,1,1
+    font_size: 40
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: 30, 30
+
+        Color:
+            rgba: self.color
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 30)
+
+<Clocker>:
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
+            rgba: self.hover_color if self.hover else (0,0,0,0)
+        RoundedRectangle:
+            pos: self.hover_rect[:2]
+            size: self.hover_rect[2:]
+
+    BoxLayout:
+        id: main
+        orientation: 'horizontal' if Window.width > Window.height or Window.width/Window.height > 1.8 else 'vertical'
+        spacing: 10
+        padding: 10
+
+        Player1:
+            id: one
+            group: 'chess'
+            root: root
+            disabled: self.timer <= 0
+            canvas.before:
+                PushMatrix
+                Rotate:
+                    angle: 180 * int(main.orientation == 'vertical')
+                    axis: 0,0,1
+                    origin: self.center
+            canvas.after:
+                PopMatrix
+        BoxLayout:
+            id: deadzone
+            orientation: 'vertical' if main.orientation == 'horizontal' else 'horizontal'
+            size_hint_x: 1/3 if main.orientation == 'horizontal' else 1
+            size_hint_y: 1/3 if main.orientation == 'vertical' else 1
+            spacing: 20
+            padding: 10
+            Widget
+            IconButton:
+                id: sound
+                mute: False
+                source: "atlas://assets/iconset/mute" if self.mute else "atlas://assets/iconset/unmute"
+                on_release:
+                    self.mute = not self.mute
+            IconButton:
+                id: reset
+                source: "atlas://assets/iconset/reset"
+                on_release: root.reset()
+            Widget
+            IconButton:
+                id: pause
+                source: 'atlas://assets/iconset/play' if root.paused else 'atlas://assets/iconset/pause'
+                on_release:
+                    root.paused = not root.paused
+                    root.toggle_pause()
+            Widget
+            IconButton:
+                id: set_time
+                source: "atlas://assets/iconset/set-time"
+                on_release: root.set_timer()
+            IconButton:
+                id: settings
+                source: "atlas://assets/iconset/setting"
+                on_release: root.open_settings()
+            Widget
+        Player2:
+            id: two
+            group: 'chess'
+            root: root
+            disabled: self.timer <= 0
